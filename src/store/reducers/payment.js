@@ -265,99 +265,98 @@ const initialState = {
                             val: 'cerdit-card',
                             name: 'Boleto Bancário'
                         }
-                    ],
-                    subFields: {
-                        'credit-card': [
-                            {
-                                name: 'cardholder-name',
-                                title: 'Cardholder name',
-                                type: 'text',
-                                placeholder: 'Your name here',
-                                val: '',
-                                size: 12,
-                                dirty: false,
-                                valid: {
-                                    isValid: false,
-                                    message: ''
-                                },
-                                validators: [
-                                    {
-                                        validator: validator.required,
-                                        message: 'This field is required'
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'card-number',
-                                title: 'Card number',
-                                type: 'text',
-                                placeholder: '1234 5678 9101 1121',
-                                val: '',
-                                size: 12,
-                                dirty: false,
-                                valid: {
-                                    isValid: false,
-                                    message: ''
-                                },
-                                validators: [
-                                    {
-                                        validator: validator.required,
-                                        message: 'This field is required'
-                                    },
-                                    {
-                                        validator: validator.creditCard,
-                                        message: 'Check your CC number'
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'due-date',
-                                title: 'Due date',
-                                type: 'text',
-                                placeholder: '12/25',
-                                val: '',
-                                size: 6,
-                                dirty: false,
-                                valid: {
-                                    isValid: false,
-                                    message: ''
-                                },
-                                validators: [
-                                    {
-                                        validator: validator.required,
-                                        message: 'This field is required'
-                                    },
-                                    {
-                                        validator: validator.expirationDate,
-                                        message: 'Check the due date numbers'
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'cvv',
-                                title: 'CVV',
-                                type: 'text',
-                                placeholder: 'Your name here',
-                                val: '',
-                                size: 12,
-                                dirty: false,
-                                valid: {
-                                    isValid: false,
-                                    message: ''
-                                },
-                                validators: [
-                                    {
-                                        validator: validator.required,
-                                        message: 'This field is required'
-                                    },
-                                    {
-                                        validator: validator.cvv,
-                                        message: 'Check your CVV number'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+                    ]
+                },
+                {
+                    name: 'cardholder-name',
+                    title: 'Cardholder name',
+                    type: 'text',
+                    placeholder: 'Your name here',
+                    val: '',
+                    size: 12,
+                    dirty: false,
+                    valid: {
+                        isValid: false,
+                        message: ''
+                    },
+                    validators: [
+                        {
+                            validator: validator.required,
+                            message: 'This field is required'
+                        }
+                    ]
+                },
+                {
+                    name: 'card-number',
+                    title: 'Card number',
+                    type: 'text',
+                    placeholder: '1234 5678 9101 1121',
+                    val: '',
+                    size: 12,
+                    mask: [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/],
+                    dirty: false,
+                    valid: {
+                        isValid: false,
+                        message: ''
+                    },
+                    validators: [
+                        {
+                            validator: validator.required,
+                            message: 'This field is required'
+                        },
+                        {
+                            validator: validator.creditCard,
+                            message: 'Check your CC number'
+                        }
+                    ]
+                },
+                {
+                    name: 'due-date',
+                    title: 'Due date',
+                    type: 'text',
+                    placeholder: '12/25',
+                    val: '',
+                    size: 6,
+                    mask: [/\d/,/\d/,'/',/\d/,/\d/],
+                    dirty: false,
+                    valid: {
+                        isValid: false,
+                        message: ''
+                    },
+                    validators: [
+                        {
+                            validator: validator.required,
+                            message: 'This field is required'
+                        },
+                        {
+                            validator: validator.expirationDate,
+                            message: 'Check the due date numbers'
+                        }
+                    ]
+                },
+                {
+                    name: 'cvv',
+                    title: 'CVV',
+                    type: 'text',
+                    placeholder: 'Your name here',
+                    val: '',
+                    size: 6,
+                    mask: [/\d/,/\d/,/\d/],
+                    dirty: false,
+                    valid: {
+                        isValid: false,
+                        message: ''
+                    },
+                    validators: [
+                        {
+                            validator: validator.required,
+                            message: 'This field is required'
+                        },
+                        {
+                            validator: validator.cvv,
+                            message: 'Check your CVV number'
+                        }
+                    ]
                 }
             ]
         }
