@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import MaskedInput from 'react-text-mask'
 
@@ -42,7 +43,7 @@ const StyledInput = styled.input`
 `
 
 export const Input = (props) => {
-    const input = props.mask ? (
+    const input = (props.mask && props.mask.length) ? (
         <MaskedInput {...props} render={(ref, props) => (
             <StyledInput innerRef={ref} {...props} />
         )} />
@@ -51,6 +52,10 @@ export const Input = (props) => {
     )
 
     return input
+}
+
+Input.propTypes = {
+    mask: PropTypes.array
 }
 
 export default Input

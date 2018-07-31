@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -15,5 +16,9 @@ const ErrorMessage = styled.span`
     font: ${calculateRem(formErrorFontSize)} ${formErrorFontFamily};
     color: ${formErrorTextColor}
 `
+
+ErrorMessage.propTypes = {
+    children: PropTypes.node.isRequired
+}
 
 export default ErrorMessage

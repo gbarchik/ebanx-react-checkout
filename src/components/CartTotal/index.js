@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -27,5 +28,11 @@ const CartTotal = ({ cart }) =>
         <Total>TOTAL</Total>
         <Total>{currencyFormatBR(cart.total)}</Total>
     </TotalContainer>
+
+CartTotal.propTypes = {
+    cart: PropTypes.shape({
+        total: PropTypes.number.isRequired
+    })
+}
 
 export default CartTotal

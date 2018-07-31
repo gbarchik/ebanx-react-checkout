@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -62,5 +63,12 @@ const PaymentStep = ({
             {children}
         </StepContent>
     </StepContainer>
+
+PaymentStep.propTypes = {
+    title: PropTypes.string.isRequired,
+    stepNumber: PropTypes.number.isRequired,
+    contentVisible: PropTypes.bool.isRequired,
+    children: PropTypes.node.isRequired
+}
 
 export default PaymentStep

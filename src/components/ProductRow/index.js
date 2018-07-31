@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Grid from '../Grid'
@@ -95,7 +96,7 @@ class ProductRow extends Component {
                     </GridColumn>
                     <GridColumn small={8} medium={4} style={{ alignSelf: 'center' }}>
                         <ProductTitle>{product.name}</ProductTitle>
-                        <span>{product.description}</span>
+                        {product.description && <span>{product.description}</span>}
                     </GridColumn>
                     <GridColumn small={1} medium={3}></GridColumn>
                     <GridColumn small={3} medium={2} style={{ alignSelf: 'center', textAlign: 'right' }}>
@@ -105,6 +106,18 @@ class ProductRow extends Component {
             </StyledProductRow>
         )
     }
+}
+
+ProductRow.propType = {
+    addToCart: PropTypes.func.isRequired,
+    removeFromCart: PropTypes.func.isRequired,
+    product: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        price: PropTypes.number.isRequired
+    })
 }
 
 export default ProductRow

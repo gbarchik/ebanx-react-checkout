@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { colors } from '../../../helpers/foundation';
@@ -58,5 +59,9 @@ const Checkbox = (props) =>
             type="checkbox" />
         <FakeCheckbox htmlFor={props.id} />
     </CheckboxContainer>
+
+Checkbox.propTypes = {
+    id: PropTypes.string.isRequired
+}
 
 export default Checkbox

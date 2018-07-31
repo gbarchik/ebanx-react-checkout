@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -14,5 +15,9 @@ const Label = styled.label`
     font: ${calculateRem(formLabelFontSize)} ${formLabelFontFamily};
     color: ${formLabelTextColor}
 `
+
+Label.propTypes = {
+    children: PropTypes.node.isRequired
+}
 
 export default Label

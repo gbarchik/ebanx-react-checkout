@@ -9,10 +9,13 @@ import Spacer from '../Spacer'
 
 class Cart extends Component {
     componentDidMount() {
+        // Load all the products
         this.props.loadProducts();
     }
 
     componentDidUpdate() {
+        // If there is any products in the card,
+        // show the checkout form
         if (this.props.cart.products.length) {
             this.props.showForm()
         } else {
@@ -50,10 +53,11 @@ class Cart extends Component {
 Cart.propTypes = {
     loadProducts: PropTypes.func.isRequired,
     products: PropTypes.array.isRequired,
-    cart: PropTypes.shape({
-        products: PropTypes.array.isRequired,
-        total: PropTypes.number.isRequired
-    })
+    showForm: PropTypes.func.isRequired,
+    hideForm: PropTypes.func.isRequired,
+    addToCart: PropTypes.func.isRequired,
+    removeFromCart: PropTypes.func.isRequired,
+    cart: PropTypes.object.isRequired
 }
 
 export default Cart

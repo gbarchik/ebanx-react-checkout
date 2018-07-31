@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -25,5 +26,9 @@ const GridColumn = styled.div`
     ${props => props.large ? columnBreakpoint(breakpoints.large, getWidth(props.large, gridCount)) : ''}
     ${props => props.xlarge ? columnBreakpoint(breakpoints.xlarge, getWidth(props.xlarge, gridCount)) : ''}
 `
+
+GridColumn.propTypes = {
+    children: PropTypes.node
+}
 
 export default GridColumn

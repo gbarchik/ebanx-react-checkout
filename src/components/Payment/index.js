@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import GridContainer from '../GridContainer'
 import Grid from '../Grid'
@@ -144,6 +145,14 @@ class Payment extends Component {
             </GridContainer>
         )
     }
+}
+
+Payment.propTypes = {
+    updateStep: PropTypes.func.isRequired,
+    goToStep: PropTypes.func.isRequired,
+    payment: PropTypes.shape({
+        steps: PropTypes.array.isRequired
+    })
 }
 
 export default Payment

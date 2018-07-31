@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import {
@@ -48,5 +49,10 @@ const Select = (props) =>
             <option key={`option-${option.val}`} value={option.val}>{option.name}</option>
         ))}
     </StyledSelect>
+
+Select.propType = {
+    placeholder: PropTypes.string,
+    options: PropTypes.array.isRequired
+}
 
 export default Select

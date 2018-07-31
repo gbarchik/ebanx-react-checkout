@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { gridGutter } from '../../helpers/foundation'
@@ -9,5 +10,9 @@ const Grid = styled.div`
     margin-right: ${calculateRem(-0.5 * gridGutter)}
     margin-left: ${calculateRem(-0.5 * gridGutter)}
 `
+
+Grid.propTypes = {
+    children: PropTypes.node.isRequired
+}
 
 export default Grid

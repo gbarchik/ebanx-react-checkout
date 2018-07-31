@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import GridContainer from '../GridContainer'
 import Spacer from '../Spacer'
@@ -36,7 +36,6 @@ const Footer = (props) => {
         </StyledFooter>
     )
 }
-
 
 Footer.propType = {
     config: PropTypes.shape({
