@@ -13,9 +13,9 @@ const validator = {
     email: (val) => emailRegEx.test(val),
     cpf: (val) => cpfValidator(val.replace(/\D/g, '')).valid,
     cep: (val) => cepRegEx.test(val.replace(/\D/g, '')),
-    creditCard: (val) => ccNumberValidator(val),
-    expirationDate: (val) => ccExpirationDateValidator(val),
-    cvv: (val) => ccCVVValidator(val)
+    creditCard: (val) => ccNumberValidator(val).isValid,
+    expirationDate: (val) => ccExpirationDateValidator(val).isValid,
+    cvv: (val) => ccCVVValidator(val).isValid
 }
 
 export default validator
