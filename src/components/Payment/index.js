@@ -9,6 +9,7 @@ import Label from '../Form/Label'
 import ErrorMessage from '../Form/ErrorMessage'
 import Input from '../Form/Input'
 import Select from '../Form/Select'
+import PaymentSelect from '../Form/PaymentSelect'
 
 // Helpers to check form validation
 const validateStep = (step) => step.fields.reduce((isValid, field) => field.valid.isValid ? isValid : false, true)
@@ -103,6 +104,19 @@ class Payment extends Component {
                         />
                     )
                     break
+
+                case 'paymentSelect':
+                    TheField = (
+                        <PaymentSelect
+                            id={name}
+                            value={val}
+                            options={options}
+                            onChange={(e) => this.handleInputChange(e, fieldIndex, step, stepIndex)}
+                            onBlur={(e) => this.handleInputBlur(e, fieldIndex, step, stepIndex)}
+                        />
+                    )
+                    break
+
                 default:
                     TheField = (
                         <Input

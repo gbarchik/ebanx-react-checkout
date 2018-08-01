@@ -53,6 +53,13 @@ export const formInputBackground = colors.white
 export const formInputBorder = `1px solid ${colors.mediumGray}`
 export const formInputBorderFocus = `1px solid ${colors.darkGray}`
 export const formInputTransition = `border-color 0.4s`
+export const formPaymentHeight = 100
+export const formPaymentBackground = colors.white
+export const formPaymentBorder = `3px solid ${colors.white}`
+export const formPaymentBorderChecked = `3px solid ${colors.mediumGray}`
+export const formPaymentLabelFontSize = 14
+export const formPaymentLabelFontWeight = 700
+export const formPaymentLabelTextColor = colors.black
 
 export const buttonFontFamily = baseFontFamily
 export const buttonFontWeight = 700
