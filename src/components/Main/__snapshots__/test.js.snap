@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(Layout) Main renders correctly 1`] = `
+<div>
+  <Connect(Header) />
+  <div>
+    <Connect(Cart) />
+    <Connect(Payment) />
+  </div>
+  <Connect(Footer) />
+</div>
+`;
