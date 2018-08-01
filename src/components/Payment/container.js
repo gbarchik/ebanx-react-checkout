@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 
 import { updateStep, goToStep } from '../../store/reducers/payment'
+import { buyNow } from '../../store/reducers/checkout'
 
 import Payment from './index'
 
 const mapDispatchToProps = {
     updateStep,
-    goToStep
+    goToStep,
+    buyNow
 }
 
 const mapStateToProps = (state) => {

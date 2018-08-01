@@ -26,12 +26,13 @@ const HeaderTitle = styled.h1`
 
 const Header = (props) => {
     const { title, description } = props.config
+    const { bought } = props.checkout
 
     return (
         <StyledHeader>
             <GridContainer>
                 <HeaderTitle>{title}</HeaderTitle>
-                {description && <p>{description}</p>}
+                {description && !bought && <p>{description}</p>}
             </GridContainer>
         </StyledHeader>
     )

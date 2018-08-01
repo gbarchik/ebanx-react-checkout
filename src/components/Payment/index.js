@@ -98,7 +98,7 @@ class Payment extends Component {
     }
 
     render() {
-        const { payment } = this.props
+        const { payment, cart, buyNow } = this.props
         const { steps } = payment
 
         const getField = (field, fieldIndex, step, stepIndex) => {
@@ -184,7 +184,11 @@ class Payment extends Component {
 
                             {stepIndex === 2 && (
                                 <GridColumn>
-                                    <Button type={'button'} disabled={payment.step !== 3}>BUY NOW</Button>
+                                    <Button
+                                        type={'button'}
+                                        disabled={payment.step !== 3}
+                                        onClick={() => buyNow(cart, steps)}
+                                    >BUY NOW</Button>
                                 </GridColumn>
                             )}
                         </Grid>
@@ -198,9 +202,11 @@ class Payment extends Component {
 Payment.propTypes = {
     updateStep: PropTypes.func.isRequired,
     goToStep: PropTypes.func.isRequired,
+    buyNow: PropTypes.func.isRequired,
     payment: PropTypes.shape({
         steps: PropTypes.array.isRequired
-    })
+    }),
+    cart: PropTypes.object.isRequired
 }
 
 export default Payment
