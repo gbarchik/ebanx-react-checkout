@@ -19,6 +19,20 @@ const validateInput = (val, validators) =>
         (valid.isValid && !validator.validator(val)) ? { isValid: false, message: validator.message } : valid
         , { isValid: true, message: '' })
 
+// Helper for conditional input
+const showConditional = (conditional, step) => {
+    let shouldShow = true
+
+    if (conditional) {
+        const conditionalInput = step.fields.filter((field) => field.name === conditional.inputName)
+        if (conditionalInput[0].val !== conditional.inputValue) {
+            shouldShow = false
+        }
+    }
+
+    return shouldShow
+}
+
 
 class Payment extends Component {
     constructor(props) {
@@ -85,6 +99,7 @@ class Payment extends Component {
                 options,
                 mask,
                 dirty,
+                conditional,
                 valid
             } = field
 
@@ -132,7 +147,7 @@ class Payment extends Component {
             }
 
             return (
-                <GridColumn medium={size} key={name}>
+                <GridColumn medium={size} key={name} style={showConditional(conditional, step) ? {} : { display: 'none' }}>
                     <Label htmlFor={name}>{title}</Label>
                     {TheField}
                     {(dirty && !valid.isValid) && <ErrorMessage>{valid.message}</ErrorMessage>}

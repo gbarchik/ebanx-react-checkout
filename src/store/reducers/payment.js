@@ -262,8 +262,8 @@ const initialState = {
                             name: 'Boleto Bancário'
                         },
                         {
-                            val: 'cerdit-card',
-                            name: 'Boleto Bancário'
+                            val: 'credit-card',
+                            name: 'Credit Card'
                         }
                     ]
                 },
@@ -275,6 +275,10 @@ const initialState = {
                     val: '',
                     size: 12,
                     dirty: false,
+                    conditional: {
+                        inputName: 'paymentType',
+                        inputValue: 'credit-card'
+                    },
                     valid: {
                         isValid: false,
                         message: ''
@@ -295,6 +299,10 @@ const initialState = {
                     size: 12,
                     mask: [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/],
                     dirty: false,
+                    conditional: {
+                        inputName: 'paymentType',
+                        inputValue: 'credit-card'
+                    },
                     valid: {
                         isValid: false,
                         message: ''
@@ -319,6 +327,10 @@ const initialState = {
                     size: 6,
                     mask: [/\d/,/\d/,'/',/\d/,/\d/],
                     dirty: false,
+                    conditional: {
+                        inputName: 'paymentType',
+                        inputValue: 'credit-card'
+                    },
                     valid: {
                         isValid: false,
                         message: ''
@@ -343,6 +355,10 @@ const initialState = {
                     size: 6,
                     mask: [/\d/,/\d/,/\d/],
                     dirty: false,
+                    conditional: {
+                        inputName: 'paymentType',
+                        inputValue: 'credit-card'
+                    },
                     valid: {
                         isValid: false,
                         message: ''
