@@ -68,3 +68,4 @@ export const buttonTextColor = colors.white
 export const buttonPadding = 16
 export const buttonBackgroundColor = colors.black
 export const buttonHoverBackgroundColor = colors.darkGray
+export const buttonDisabledBackgroundColor = colors.midGray

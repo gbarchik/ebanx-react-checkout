@@ -10,6 +10,7 @@ import ErrorMessage from '../Form/ErrorMessage'
 import Input from '../Form/Input'
 import Select from '../Form/Select'
 import PaymentSelect from '../Form/PaymentSelect'
+import Button from '../Form/Button'
 
 // Helpers to check form validation
 const validateStep = (step) => step.fields.reduce((isValid, field) => {
@@ -180,6 +181,12 @@ class Payment extends Component {
                             {step.fields && step.fields.map((field, fieldIndex) => {
                                 return getField(field, fieldIndex, step, stepIndex)
                             })}
+
+                            {stepIndex === 2 && (
+                                <GridColumn>
+                                    <Button type={'button'} disabled={payment.step !== 3}>BUY NOW</Button>
+                                </GridColumn>
+                            )}
                         </Grid>
                     </PaymentStep>
                 ))}
