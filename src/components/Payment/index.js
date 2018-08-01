@@ -12,7 +12,13 @@ import Select from '../Form/Select'
 import PaymentSelect from '../Form/PaymentSelect'
 
 // Helpers to check form validation
-const validateStep = (step) => step.fields.reduce((isValid, field) => field.valid.isValid ? isValid : false, true)
+const validateStep = (step) => step.fields.reduce((isValid, field) => {
+    if (field.conditional && !showConditional(field.conditional, step)) {
+        return isValid
+    }
+
+    return field.valid.isValid ? isValid : false
+}, true)
 
 const validateInput = (val, validators) =>
     validators.reduce((valid, validator) =>
@@ -44,44 +50,50 @@ class Payment extends Component {
 
     handleInputChange(e, fieldIndex, step, stepIndex) {
         const val = e.target.value
-        let fields = step.fields
-
-        fields[fieldIndex] = {
-            ...fields[fieldIndex],
-            val: val,
-            valid: validateInput(val, fields[fieldIndex].validators)
+        let newStep = {
+            ...step,
+            fields: step.fields.map((field, i) => {
+                return fieldIndex === i ? {
+                    ...field,
+                    val,
+                    valid: validateInput(val, field.validators)
+                } : {
+                    ...field
+                }
+            })
         }
 
-        this.props.updateStep({
-            ...step,
-            fields
-        }, stepIndex)
-    }
+        // Validates the step
+        newStep.isComplete = validateStep(newStep)
 
-    handleInputBlur(e, fieldIndex, step, stepIndex) {
-        let fields = step.fields
-
-        // Check if the Step is already valid
-        const isStepValid = validateStep(step)
-
-        fields[fieldIndex] = {
-            ...fields[fieldIndex],
-            dirty: e.target.value ? true : fields[fieldIndex].dirty
-        }
-
-        this.props.updateStep({
-            ...step,
-            isComplete: isStepValid,
-            fields
-        }, stepIndex)
+        // Updates the value of the field,
+        // checks its validity and the
+        // step validity
+        this.props.updateStep(newStep, stepIndex)
 
         // If the step is valid, allow the user to fill the next step
         // If a previous step is invalid, return to that step
-        if ((stepIndex === this.props.payment.step) && isStepValid) {
+        if ((stepIndex === this.props.payment.step) && newStep.isComplete) {
             this.props.goToStep(stepIndex + 1)
-        } else if ((stepIndex < this.props.payment.step) && !isStepValid) {
+        } else if ((stepIndex < this.props.payment.step) && !newStep.isComplete) {
             this.props.goToStep(stepIndex)
         }
+    }
+
+    handleInputBlur(e, fieldIndex, step, stepIndex) {
+
+        // Updates the field dirty state
+        this.props.updateStep({
+            ...step,
+            fields: step.fields.map((field, i) => {
+                return fieldIndex === i ? {
+                    ...field,
+                    dirty: e.target.value ? true : field.dirty
+                } : {
+                    ...field
+                }
+            })
+        }, stepIndex)
     }
 
     render() {
