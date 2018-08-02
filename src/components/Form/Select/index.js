@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -42,24 +42,23 @@ const StyledSelect = styled.select`
     }
 `
 
-class Select extends Component {
+class Select extends PureComponent {
     constructor(props) {
         super(props)
         this.state = { isSelectDirty: false }
-
-        this.handleSelectChange = this.handleSelectChange.bind(this)
     }
 
-    handleSelectChange(e) {
-        this.props.onChange(e);
-        this.setState({ isSelectDirty: true })
+    componentDidUpdate(prevProps) {
+        if (prevProps.value !== this.props.value && !this.setState.isSelectDirty) {
+            this.setState({ isSelectDirty: true })
+        }
     }
 
     render() {
         const { props } = this
 
         return (
-            <StyledSelect {...props} onChange={this.handleSelectChange} isSelectDirty={this.state.isSelectDirty}>
+            <StyledSelect {...props} isSelectDirty={this.state.isSelectDirty}>
                 <option value="" disabled>{props.placeholder}</option>
                 {props.options && props.options.map((option) => (
                     <option key={`option-${option.val}`} value={option.val}>{option.name}</option>
