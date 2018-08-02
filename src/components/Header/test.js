@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 import Header from './index'
 
@@ -25,29 +25,29 @@ describe('(Layout) Header', () => {
     })
 
     it('renders as a <header>', () => {
-        const wrapper = shallow(<Header {...fakeProps} />)
-        expect(wrapper.html()).toMatch(/^<header/)
+        const wrapper = mount(<Header {...fakeProps} />)
+        expect(wrapper.find('header')).toMatchSelector('header')
     })
 
-    it('should render a <HeaderTitle> title', () => {
-        const wrapper = shallow(<Header {...fakeProps} />)
-        expect(wrapper.find('HeaderTitle')).toHaveLength(1)
+    it('should render a <h1> title', () => {
+        const wrapper = mount(<Header {...fakeProps} />)
+        expect(wrapper.find('h1')).toMatchSelector('h1')
     })
 
     it('should render the Title', () => {
-        const wrapper = shallow(<Header {...fakeProps} />)
+        const wrapper = mount(<Header {...fakeProps} />)
         wrapper.setProps({ config: { title: 'EBANX' } })
-        expect(wrapper.find('HeaderTitle').children().text()).toBe('EBANX')
+        expect(wrapper.find('h1')).toHaveText('EBANX')
     })
 
     it('should show the description if it is not the ThankYou page', () => {
-        const wrapper = shallow(<Header {...fakeProps} />)
-        expect(wrapper.find('p')).toHaveLength(1)
+        const wrapper = mount(<Header {...fakeProps} />)
+        expect(wrapper.find('p')).toExist()
     })
 
     it('should not show the description if it is the ThankYou page', () => {
-        const wrapper = shallow(<Header {...fakeProps} />)
+        const wrapper = mount(<Header {...fakeProps} />)
         wrapper.setProps({ checkout: { bought: true } })
-        expect(wrapper.find('p')).toHaveLength(0)
+        expect(wrapper.find('p')).not.toExist()
     })
 })

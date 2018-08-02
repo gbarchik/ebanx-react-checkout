@@ -22,42 +22,42 @@ describe('(Layout) Main', () => {
 
     it('renders as a <div>', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
-        expect(wrapper.type()).toBe('div')
+        expect(wrapper).toMatchSelector('div')
     })
 
     it('should render a <Header>', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
-        expect(wrapper.find(Header)).toHaveLength(1)
+        expect(wrapper.find(Header)).toExist()
     })
 
     it('should render a <Footer>', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
-        expect(wrapper.find(Footer)).toHaveLength(1)
+        expect(wrapper.find(Footer)).toExist()
     })
 
     it('should render a <Cart> and a <Payment> if bought is false', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
         wrapper.setProps({ checkout: { bought: false } })
-        expect(wrapper.find(Cart)).toHaveLength(1)
-        expect(wrapper.find(Payment)).toHaveLength(1)
+        expect(wrapper.find(Cart)).toExist()
+        expect(wrapper.find(Payment)).toExist()
     })
 
     it('should not render a <ThankYou> if bought is false', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
         wrapper.setProps({ checkout: { bought: false } })
-        expect(wrapper.find(ThankYou)).toHaveLength(0)
+        expect(wrapper.find(ThankYou)).not.toExist()
     })
 
     it('should not render a <Cart> and a <Payment> if bought is true', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
         wrapper.setProps({ checkout: { bought: true } })
-        expect(wrapper.find(Cart)).toHaveLength(0)
-        expect(wrapper.find(Payment)).toHaveLength(0)
+        expect(wrapper.find(Cart)).not.toExist()
+        expect(wrapper.find(Payment)).not.toExist()
     })
 
     it('should render a <ThankYou> if bought is true', () => {
         const wrapper = shallow(<Main {...fakeProps} />)
         wrapper.setProps({ checkout: { bought: true } })
-        expect(wrapper.find(ThankYou)).toHaveLength(1)
+        expect(wrapper.find(ThankYou)).toExist()
     })
 })
