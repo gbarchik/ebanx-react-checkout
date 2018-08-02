@@ -24,6 +24,10 @@ export const calculateEm = calculate('em', ((baseFontSize / 100) * 16))
  * Reais
  */
 export const currencyFormatBR = (num) => {
+    if (isNaN(parseFloat(num))) {
+        return ''
+    }
+
     let formattedNum = parseFloat(num).toFixed(2).split('.')
     formattedNum[0] = `R$ ${formattedNum[0].split(/(?=(?:...)*$)/).join('.')}`
     return formattedNum.join(',')
