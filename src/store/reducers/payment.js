@@ -1,10 +1,13 @@
 import validator from '../../helpers/validator'
+import getAddressAPI from '../../helpers/getAddressAPI'
 
 // Constants
 export const SHOW_FORM = 'SHOW_FORM'
 export const HIDE_FORM = 'HIDE_FORM'
 export const UPDATE_STEP_INFO = 'UPDATE_STEP_INFO'
 export const CHANGE_STEP = 'CHANGE_STEP'
+export const GET_ADDRESS = 'GET_ADDRESS'
+export const ADDRESS_GOTTEN = 'ADDRESS_GOTTEN'
 
 // Actions
 export const formShown = () => {
@@ -30,17 +33,35 @@ export const stepChanged = (stepNum) => {
         stepNum
     })
 }
+export const gettingAddress = () => {
+    return ({
+        type: GET_ADDRESS,
+        isAddressLoading: true
+    })
+}
+export const addressGotten = (address) => {
+    return ({
+        type: ADDRESS_GOTTEN,
+        isAddressLoading: false,
+        address
+    })
+}
 
 // Dispatchers
 export const showForm = () => dispatch => dispatch(formShown())
 export const hideForm = () => dispatch => dispatch(formHidden())
 export const updateStep = (step, stepIndex) => dispatch => dispatch(stepUpdated(step, stepIndex))
 export const goToStep = (stepNum) => dispatch => dispatch(stepChanged(stepNum))
+export const getAddress = (cep) => dispatch => {
+    dispatch(gettingAddress())
+    return getAddressAPI(cep).then(data => dispatch(addressGotten(data)))
+}
 
 // Reducer
 const initialState = {
     step: 0,
     isFormVisible: false,
+    isAddressLoading: false,
     steps: [
         {
             title: 'Personal data',
@@ -96,7 +117,7 @@ const initialState = {
                     placeholder: 'Your CPF here',
                     val: '',
                     size: 6,
-                    mask: [/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'-',/\d/,/\d/],
+                    mask: [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/],
                     dirty: false,
                     valid: {
                         isValid: false,
@@ -127,8 +148,7 @@ const initialState = {
                     placeholder: 'Your zip code here',
                     val: '',
                     size: 4,
-                    onChange: () => { },
-                    mask: [/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/],
+                    mask: [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/],
                     dirty: false,
                     valid: {
                         isValid: false,
@@ -297,7 +317,7 @@ const initialState = {
                     placeholder: '1234 5678 9101 1121',
                     val: '',
                     size: 12,
-                    mask: [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/],
+                    mask: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
                     dirty: false,
                     conditional: {
                         inputName: 'paymentType',
@@ -325,7 +345,7 @@ const initialState = {
                     placeholder: '12/25',
                     val: '',
                     size: 6,
-                    mask: [/\d/,/\d/,'/',/\d/,/\d/],
+                    mask: [/\d/, /\d/, '/', /\d/, /\d/],
                     dirty: false,
                     conditional: {
                         inputName: 'paymentType',
@@ -353,7 +373,7 @@ const initialState = {
                     placeholder: 'Your name here',
                     val: '',
                     size: 6,
-                    mask: [/\d/,/\d/,/\d/],
+                    mask: [/\d/, /\d/, /\d/],
                     dirty: false,
                     conditional: {
                         inputName: 'paymentType',
@@ -409,6 +429,43 @@ export const paymentReducer = (state = initialState, action) => {
                     ...state.steps.map((step, i) => ({ ...step, isVisible: i <= action.stepNum }))
                 ]
             }
+
+        case GET_ADDRESS:
+            return {
+                ...state,
+                isAddressLoading: action.isAddressLoading
+            }
+
+        case ADDRESS_GOTTEN:
+            return action.error ? {
+                ...state,
+                isAddressLoading: action.isAddressLoading,
+            } : {
+                    ...state,
+                    isAddressLoading: action.isAddressLoading,
+                    steps: [
+                        ...state.steps.map((step) => {
+                            return {
+                                ...step,
+                                fields: step.fields.map((field) => {
+                                    switch (field.name) {
+                                        case 'state':
+                                            field.val = action.address.uf
+                                            break
+                                        case 'city':
+                                            field.val = action.address.localidade
+                                            break
+                                        case 'address':
+                                            field.val = action.address.logradouro
+                                            break
+                                    }
+
+                                    return field
+                                })
+                            }
+                        })
+                    ]
+                }
 
         default:
             return state

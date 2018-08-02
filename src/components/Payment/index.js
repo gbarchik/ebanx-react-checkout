@@ -95,6 +95,11 @@ class Payment extends Component {
                 }
             })
         }, stepIndex)
+
+        // Get address based on CEP number
+        if (e.target.id === 'zipcode' && e.target.dataset.isvalid === 'true') {
+            this.props.getAddress(e.target.value)
+        }
     }
 
     render() {
@@ -129,6 +134,7 @@ class Payment extends Component {
                             options={options}
                             onChange={(e) => this.handleInputChange(e, fieldIndex, step, stepIndex)}
                             onBlur={(e) => this.handleInputBlur(e, fieldIndex, step, stepIndex)}
+                            data-isvalid={valid.isValid}
                         />
                     )
                     break
@@ -141,6 +147,7 @@ class Payment extends Component {
                             options={options}
                             onChange={(e) => this.handleInputChange(e, fieldIndex, step, stepIndex)}
                             onBlur={(e) => this.handleInputBlur(e, fieldIndex, step, stepIndex)}
+                            data-isvalid={valid.isValid}
                         />
                     )
                     break
@@ -155,6 +162,7 @@ class Payment extends Component {
                             value={val}
                             onChange={(e) => this.handleInputChange(e, fieldIndex, step, stepIndex)}
                             onBlur={(e) => this.handleInputBlur(e, fieldIndex, step, stepIndex)}
+                            data-isvalid={valid.isValid}
                         />
                     )
             }
